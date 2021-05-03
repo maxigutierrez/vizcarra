@@ -1,0 +1,10 @@
+<CONSULTA-ALICUOTA>
+<fechaDesde>20190601</fechaDesde>
+<fechaHasta>20190630</fechaHasta>
+<cantidadContribuyentes>1</cantidadContribuyentes>
+<contribuyentes class="list">
+<contribuyente>
+<cuitContribuyente>30596033977</cuitContribuyente>
+</contribuyente>
+</contribuyentes>
+</CONSULTA-ALICUOTA>
