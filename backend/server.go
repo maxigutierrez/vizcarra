@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	ProductosController "./controllers/productos"
+	MarcasController "./controllers/marcas"
 
 	"./config"
 	"./database"
@@ -41,12 +42,17 @@ func main() {
 
 	//Rutas
 
-	//productos
 	b.POST("/productos", ProductosController.Create)
 	b.PUT("/productos", ProductosController.Update)
 	b.GET("/productos", ProductosController.GetAll)
 	b.GET("/productos/:id", ProductosController.Get)
 	b.DELETE("/productos/:id", ProductosController.Delete)
+
+	b.POST("/marcas", MarcasController.Create)
+	b.PUT("/marcas", MarcasController.Update)
+	b.GET("/marcas", MarcasController.GetAll)
+	b.GET("/marcas/:id", MarcasController.Get)
+	b.DELETE("/marcas/:id", MarcasController.Delete)
 
 	// e.Logger.Fatal(e.Start(config.Port))
 	//e.Logger.Fatal(e.StartTLS(":1323", "cert.pem", "key.pem"))

@@ -56,11 +56,11 @@ export const api = {
 				return responseData;
 			},
 		},
-		bancos:{
+		marcas:{
 			async getAll() {
-				const response = await fetch(config.URL_API + `/bancos`, {
+				const response = await fetch(config.URL_API + `/marcas`, {
 					method: 'GET',
-					headers: {'AUTHORIZATION': `Bearer ${sessionStorage.getItem('token')}`},
+					// headers: {'AUTHORIZATION': `Bearer ${sessionStorage.getItem('token')}`},
 				});
 				const data = await response.json();
 				return data;

@@ -1,4 +1,4 @@
-package productos
+package marcas
 
 import (
 	"net/http"
@@ -16,15 +16,15 @@ type ResponseMessage struct {
 }
 
 type Data struct {
-	Productos       []Models.Productos `json:"productos,omitempty"`
-	Producto        *Models.Productos  `json:"producto,omitempty"`
-	TotalDataSize int              `json:"totalDataSize,omitempty"`
+	Marcas       []Models.Marcas `json:"marcas,omitempty"`
+	Marca        *Models.Marcas  `json:"marca,omitempty"`
+	TotalDataSize int            `json:"totalDataSize,omitempty"`
 }
 
 func Create(c echo.Context) error {
 	db := database.GetDb()
-	productos := new(Models.Productos)
-	if err := c.Bind(productos); err != nil {
+	marcas := new(Models.Marcas)
+	if err := c.Bind(marcas); err != nil {
 		response := ResponseMessage{
 			Status:  "error",
 			Message: "invalid request body " + err.Error(),
@@ -32,14 +32,14 @@ func Create(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, response)
 	}
 
-	if err := db.Create(&productos).Error; err != nil {
+	if err := db.Create(&marcas).Error; err != nil {
 		response := ResponseMessage{
 			Status:  "error",
 			Message: err.Error(),
 		}
 		return c.JSON(http.StatusBadRequest, response)
 	}
-	data := Data{Producto: productos}
+	data := Data{Marca: marcas}
 	return c.JSON(http.StatusOK, ResponseMessage{
 		Status: "success",
 		Data:   data,
@@ -47,22 +47,22 @@ func Create(c echo.Context) error {
 }
 func Update(c echo.Context) error {
 	db := database.GetDb()
-	productos := new(Models.Productos)
-	if err := c.Bind(productos); err != nil {
+	marcas := new(Models.Marcas)
+	if err := c.Bind(marcas); err != nil {
 		response := ResponseMessage{
 			Status:  "error",
 			Message: "invalid request body ",
 		}
 		return c.JSON(http.StatusBadRequest, response)
 	}
-	if err := db.Save(&productos).Error; err != nil {
+	if err := db.Omit("alta", "ualta", "baja", "ubaja").Save(&marcas).Error; err != nil {
 		response := ResponseMessage{
 			Status:  "error",
 			Message: err.Error(),
 		}
 		return c.JSON(http.StatusBadRequest, response)
 	}
-	data := Data{Producto: productos}
+	data := Data{Marca: marcas}
 	return c.JSON(http.StatusOK, ResponseMessage{
 		Status:  "success",
 		Data:    data,
@@ -72,21 +72,10 @@ func Update(c echo.Context) error {
 func GetAll(c echo.Context) error {
 	db := database.GetDb()
 
-	// if c.QueryParam("q") != "" {
-	// 	db = db.Where("id like ? ", "%"+c.QueryParam("q")+"%").
-	// 		Or("exists (select 1 from bancos where id = bancos_id and banco like ? ) ", "%"+c.QueryParam("q")+"%").
-	// 		Or("producto like ? ", "%"+c.QueryParam("q"))
-	// }
-
-	// db = db.Joins("JOIN bancos ON bancos.id = productos.bancos_id")
-	// if c.QueryParam("q") != "" {
-	// 	db = db.Where(` productos.id like ?	
-	// 	or producto like ?  
-	// 	or bancos.banco  like ? `,
-	// 		"%"+c.QueryParam("q")+"%",
-	// 		"%"+c.QueryParam("q")+"%",
-	// 		"%"+c.QueryParam("q")+"%")
-	// }
+	if c.QueryParam("q") != "" {
+		db = db.Where("id like ? ", "%"+c.QueryParam("q")+"%").
+			Or("marca like ? ", "%"+c.QueryParam("q"))
+	}
 
 	//Order By
 	if c.QueryParam("sortField") != "" {
@@ -109,10 +98,10 @@ func GetAll(c echo.Context) error {
 	}
 	offset = limit * (page - 1)
 	//===============================================
-	var productos []Models.Productos
-	db.Offset(offset).Limit(limit).Find(&productos)
-	db.Table("productos").Count(&totalDataSize)
-	data := Data{Productos: productos, TotalDataSize: totalDataSize}
+	var marcas []Models.Marcas
+	db.Offset(offset).Limit(limit).Find(&marcas)
+	db.Table("marcas").Count(&totalDataSize)
+	data := Data{Marcas: marcas, TotalDataSize: totalDataSize}
 	return c.JSON(http.StatusOK, ResponseMessage{
 		Status: "success",
 		Data:   data,
@@ -122,11 +111,11 @@ func Get(c echo.Context) error {
 	db := database.GetDb()
 	id := c.Param("id")
 
-	productos := new(Models.Productos)
-	//db.Preload("Franquicias").Preload("Roles").Find(&productos, id)
-	db.Find(&productos, id)
+	marcas := new(Models.Marcas)
+	//db.Preload("Franquicias").Preload("Roles").Find(&marcas, id)
+	db.Find(&marcas, id)
 
-	data := Data{Producto: productos}
+	data := Data{Marca: marcas}
 	return c.JSON(http.StatusOK, ResponseMessage{
 		Status: "success",
 		Data:   data,
@@ -135,7 +124,7 @@ func Get(c echo.Context) error {
 func Delete(c echo.Context) error {
 	db := database.GetDb()
 
-	if err := db.Exec("DELETE FROM productos WHERE id = ?", c.Param("id")).Error; err != nil {
+	if err := db.Exec("DELETE FROM marcas WHERE id = ?", c.Param("id")).Error; err != nil {
 		response := ResponseMessage{
 			Status:  "error",
 			Message: err.Error(),

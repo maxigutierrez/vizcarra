@@ -103,7 +103,12 @@ class AppMenu extends React.Component {
         >
           <Menu.Item key="/app/productos">
             <a href="#/app/productos">
-              <span><Icon type="file"/><span className="nav-text">Productos</span></span>
+              <span><Icon type="shopping-cart" /><span className="nav-text">Productos</span></span>
+            </a>
+          </Menu.Item>
+          <Menu.Item key="/app/marcas">
+            <a href="#/app/marcas">
+              <span><Icon type="container" /><span className="nav-text">Marcas</span></span>
             </a>
           </Menu.Item>
         </Menu>
