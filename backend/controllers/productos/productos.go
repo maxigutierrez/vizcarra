@@ -72,21 +72,15 @@ func Update(c echo.Context) error {
 func GetAll(c echo.Context) error {
 	db := database.GetDb()
 
-	// if c.QueryParam("q") != "" {
-	// 	db = db.Where("id like ? ", "%"+c.QueryParam("q")+"%").
-	// 		Or("exists (select 1 from bancos where id = bancos_id and banco like ? ) ", "%"+c.QueryParam("q")+"%").
-	// 		Or("producto like ? ", "%"+c.QueryParam("q"))
-	// }
-
-	// db = db.Joins("JOIN bancos ON bancos.id = productos.bancos_id")
-	// if c.QueryParam("q") != "" {
-	// 	db = db.Where(` productos.id like ?	
-	// 	or producto like ?  
-	// 	or bancos.banco  like ? `,
-	// 		"%"+c.QueryParam("q")+"%",
-	// 		"%"+c.QueryParam("q")+"%",
-	// 		"%"+c.QueryParam("q")+"%")
-	// }
+	db = db.Joins("JOIN marcas ON marcas.id = productos.marcas_id")
+	if c.QueryParam("q") != "" {
+		db = db.Where(` productos.id like ?	
+		or producto like ?  
+		or marcas.marca  like ? `,
+			"%"+c.QueryParam("q")+"%",
+			"%"+c.QueryParam("q")+"%",
+			"%"+c.QueryParam("q")+"%")
+	}
 
 	//Order By
 	if c.QueryParam("sortField") != "" {
@@ -110,7 +104,7 @@ func GetAll(c echo.Context) error {
 	offset = limit * (page - 1)
 	//===============================================
 	var productos []Models.Productos
-	db.Offset(offset).Limit(limit).Find(&productos)
+	db.Offset(offset).Limit(limit).Preload("Marca").Find(&productos)
 	db.Table("productos").Count(&totalDataSize)
 	data := Data{Productos: productos, TotalDataSize: totalDataSize}
 	return c.JSON(http.StatusOK, ResponseMessage{

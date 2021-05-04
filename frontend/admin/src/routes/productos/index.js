@@ -34,6 +34,14 @@ class Productos extends React.Component {
 					width: 300,
 				},
 				{
+					title: 'Marca',
+					dataIndex: 'marca',
+					sorter: true,
+					key: 'marca',
+					width: 300,
+					render: (col, row) => row.marca.marca
+				},
+				{
 					title: 'Acción',
 					key: 'action',
 					align: 'right',
