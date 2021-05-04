@@ -5,6 +5,7 @@ import (
 
 	ProductosController "./controllers/productos"
 	MarcasController "./controllers/marcas"
+	ClientesController "./controllers/clientes"
 
 	"./config"
 	"./database"
@@ -53,6 +54,12 @@ func main() {
 	b.GET("/marcas", MarcasController.GetAll)
 	b.GET("/marcas/:id", MarcasController.Get)
 	b.DELETE("/marcas/:id", MarcasController.Delete)
+
+	b.POST("/clientes", ClientesController.Create)
+	b.PUT("/clientes", ClientesController.Update)
+	b.GET("/clientes", ClientesController.GetAll)
+	b.GET("/clientes/:id", ClientesController.Get)
+	b.DELETE("/clientes/:id", ClientesController.Delete)
 
 	// e.Logger.Fatal(e.Start(config.Port))
 	//e.Logger.Fatal(e.StartTLS(":1323", "cert.pem", "key.pem"))

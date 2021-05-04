@@ -62,7 +62,7 @@ class Marcas extends React.Component {
 	showDeleteConfirm = async (id) => {
 		const _this = this;
 		Modal.confirm({
-			title: '¿Esta seguro que desea borrar?',
+			title: '¿Está seguro que desea borrar?',
 			okText: 'Aceptar',
 			okType: 'danger',
 			cancelText: 'Cancelar',
@@ -194,7 +194,6 @@ class Marcas extends React.Component {
 					</div>
 				</QueueAnim>
 				{this.state.openNuevo &&
-
 					<Nuevo
 						closeModal={() => {
 							this.setState({ openNuevo: false });
@@ -204,15 +203,6 @@ class Marcas extends React.Component {
 				}
 				{this.state.openEditar &&
 					<Editar
-						// cargarDatos= {(e)=>{
-						// 		let newdata ={
-						// 		marcas:'Cheque',
-						// 		banco:e.banco,
-						// 		};
-						// 		// this.state.data.push(newdata);
-						// 		console.log(newdata)
-						// 		}
-						// 	}
 						closeModal={() => {
 							this.setState({ openEditar: false });
 							this.fetch();

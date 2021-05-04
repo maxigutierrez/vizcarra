@@ -111,6 +111,11 @@ class AppMenu extends React.Component {
               <span><Icon type="container" /><span className="nav-text">Marcas</span></span>
             </a>
           </Menu.Item>
+          <Menu.Item key="/app/clientes">
+            <a href="#/app/clientes">
+              <span><Icon type="team" /><span className="nav-text">Clientes</span></span>
+            </a>
+          </Menu.Item>
         </Menu>
       )
   }

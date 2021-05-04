@@ -77,7 +77,6 @@ class Editar extends React.Component {
 								}}>
 									{getFieldDecorator('producto', {
 										initialValue: this.props.data ? this.props.data.producto : '',
-										rules: [{ required: true, message: ' ' }],
 									})(
 										<Input size="default" />
 									)}
@@ -92,7 +91,6 @@ class Editar extends React.Component {
 								}}>
 									{getFieldDecorator('marcas_id', {
 										initialValue: this.props.data ? this.props.data.marcas_id : '',
-										rules: [{ required: true, message: 'Campo obligatorio' }],
 									})(
 
 										<Select

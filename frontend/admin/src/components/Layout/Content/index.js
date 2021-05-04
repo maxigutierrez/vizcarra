@@ -18,6 +18,11 @@ let AsyncMarcas = loadable({
   loader: () => import('routes/marcas'),
   loading: LoadingComponent,
 })
+let AsyncClientes = loadable({
+  loader: () => import('routes/clientes'),
+  loading: LoadingComponent,
+})
+
 
 
 class AppContent extends React.Component {
@@ -29,6 +34,7 @@ class AppContent extends React.Component {
         <Route exact path={`${match.url}/dashboard`} component={AsyncDashboard} />
         <Route exact path={`${match.url}/productos`} component={AsyncProductos} />
         <Route exact path={`${match.url}/marcas`} component={AsyncMarcas} />
+        <Route exact path={`${match.url}/clientes`} component={AsyncClientes} />
       </Content>
     );
   }

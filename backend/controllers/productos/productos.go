@@ -86,7 +86,7 @@ func GetAll(c echo.Context) error {
 	if c.QueryParam("sortField") != "" {
 		db = db.Order(c.QueryParam("sortField") + " " + c.QueryParam("sortOrder"))
 	} else {
-		db = db.Order("id")
+		db = db.Order("id desc")
 	}
 
 	//Paginacion

@@ -31,7 +31,7 @@ class AppSidenav extends React.Component {
         >
           <Logo />
           <a href="#/app/inicio" className="brand" style={{ marginLeft: "0px" }} >
-            <img alt="" src="assets/images/Logo01.png" style={{ height: 45, marginTop: -5, marginLeft: -10 }} />
+            <img alt="" src="assets/images/Logo.png" style={{ height: 45, marginTop: -5, marginLeft: -5 }} />
           </a>
         </section>
 
